@@ -25,6 +25,11 @@ class CartViewController: UIViewController, DrawerControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isTranslucent = false
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.backgroundColor = UIColor(named: "#42b2e5")
+        } else {
+            self.navigationController?.navigationBar.backgroundColor = UIColor.blue
+        }
     }
     
     

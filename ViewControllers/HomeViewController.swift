@@ -9,7 +9,7 @@
 import UIKit
 
 struct DrawerArray {
-    static let array:NSArray = ["MyAccount", "Offers", "History","Offers", "Language", "Settings", "History"]
+    static let array:NSArray = ["Home & Living", "Mobile Accessories", "Electronics & Gadgtets","Fashion & Lifestyle", "Arts & Crafts", "AutoMobiles", "Gifts & Toys", "Below $399"]
 }
 
 class HomeViewController: UIViewController, DrawerControllerDelegate {
@@ -26,7 +26,13 @@ class HomeViewController: UIViewController, DrawerControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.navigationBar.isTranslucent = false
+       // self.navigationController?.navigationBar.isTranslucent = false
+        
+        if #available(iOS 11.0, *) {
+            self.navigationController?.navigationBar.backgroundColor = UIColor(named: "#42b2e5")
+        } else {
+            self.navigationController?.navigationBar.backgroundColor = UIColor.blue
+        }
     }
 
     
@@ -37,8 +43,8 @@ class HomeViewController: UIViewController, DrawerControllerDelegate {
         drawerVw.delegate = self
         
         drawerVw.changeGradientColor(colorTop: UIColor.groupTableViewBackground, colorBottom: UIColor.white)
-        drawerVw.changeCellTextColor(txtColor: UIColor.black)
-        drawerVw.changeUserNameTextColor(txtColor: UIColor.black)
+        drawerVw.changeCellTextColor(txtColor: UIColor.white)
+        drawerVw.changeUserNameTextColor(txtColor: UIColor.white)
         drawerVw.changeFont(font: UIFont(name:"Avenir Next", size:18)!)
         drawerVw.changeUserName(name: "Mahadhi Hassan Chowdhury")
         drawerVw.show()

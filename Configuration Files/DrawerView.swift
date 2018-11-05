@@ -20,7 +20,7 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
     var drawerView = UIView()
     
     var tblVw = UITableView()
-    var aryViewControllers = NSArray()
+    var arrayViewControllers = NSArray()
     
     var currentViewController = UIViewController()
     var cellTextColor:UIColor?
@@ -95,8 +95,8 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
         currentViewController.tabBarController?.tabBar.isHidden = true
         
         backgroundView.frame = frame
-        drawerView.backgroundColor = UIColor.clear
-        backgroundView.backgroundColor = UIColor.black
+        drawerView.backgroundColor =  UIColor(red: 31/255.0, green: 69/255.0, blue: 106/255.0, alpha: 1.0)//rgb(66,178,229)
+        backgroundView.backgroundColor = UIColor(red: 31/255.0, green: 69/255.0, blue: 106/255.0, alpha: 1.0) //rgb(66,178,229)
         backgroundView.alpha = 0.6
         
         // Initialize the tap gesture to hide the drawer.
@@ -135,7 +135,7 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
     func allocateLayout(controllers:NSArray, isHeaderInTop:Bool) {
         
         if isHeaderInTop {
-            vwForHeader = UIView(frame:CGRect(x:0, y:20, width:drawerView.frame.size.width, height:75))
+            vwForHeader = UIView(frame:CGRect(x:0, y:20, width:drawerView.frame.size.width, height:120))
             self.lblunderLine = UILabel(frame:CGRect(x:vwForHeader.frame.origin.x+10, y:vwForHeader.frame.size.height - 1 , width:vwForHeader.frame.size.width-20, height:1.0))
             tblVw.frame = CGRect(x:0, y:vwForHeader.frame.origin.y+vwForHeader.frame.size.height, width:screenSize.width/2+75, height:screenSize.height-100)
             
@@ -146,10 +146,10 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
         }
         
         tblVw.separatorStyle = UITableViewCellSeparatorStyle.none
-        aryViewControllers = controllers
+        arrayViewControllers = controllers
         tblVw.delegate = self
         tblVw.dataSource = self
-        tblVw.backgroundColor = UIColor.clear
+        tblVw.backgroundColor = UIColor(red: 31/255.0, green: 69/255.0, blue: 106/255.0, alpha: 1.0) //rgb(31,69,106)
         drawerView.addSubview(tblVw)
         tblVw.reloadData()
         
@@ -157,10 +157,10 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
         vwForHeader.addSubview(lblunderLine)
         
         btnLogOut = UIButton(frame:CGRect(x:20, y:14, width:vwForHeader.frame.size.width/2+30, height:25))
-        btnLogOut.setTitle("LogOut", for: .normal)
+        btnLogOut.setTitle("LOGOUT", for: .normal)
         btnLogOut.contentHorizontalAlignment = .left
         btnLogOut.addTarget(self, action: #selector(actLogOut), for: .touchUpInside)
-        btnLogOut.titleLabel?.font = fontNew ?? UIFont(name: "Euphemia UCAS", size: 15)
+        btnLogOut.titleLabel?.font = fontNew ?? UIFont(name: "Euphemia UCAS", size: 16)
         btnLogOut.setTitleColor(UIColor.white, for: .normal)
         vwForHeader.addSubview(btnLogOut)
         
@@ -173,17 +173,18 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
         
         lblUserName = UILabel(frame:CGRect(x:btnLogOut.frame.origin.x, y:btnLogOut.frame.origin.y+btnLogOut.frame.size.height-5, width:btnLogOut.frame.size.width, height:25))
         lblUserName.text = "No Name"
-        lblUserName.font = UIFont(name: "Euphemia UCAS", size: 11)
+        lblUserName.font = UIFont(name: "Euphemia UCAS", size: 12)
         lblUserName.textAlignment = .left
-        lblUserName.textColor = UIColor.lightText
+        lblUserName.textColor = UIColor.white
         vwForHeader.addSubview(lblUserName)
         
+        vwForHeader.backgroundColor = UIColor(red: 66/255.0, green: 178/255.0, blue: 229/255.0, alpha: 1.0)  //66,178,229
         drawerView.addSubview(vwForHeader)
         addSubview(drawerView)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return aryViewControllers.count
+        return arrayViewControllers.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -193,10 +194,18 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DrawerCell") as! DrawerCell
         cell.backgroundColor = UIColor.clear
-        cell.lblController?.text = aryViewControllers[indexPath.row] as? String
-        cell.imgController?.image = UIImage(named: (aryViewControllers[indexPath.row] as? String)!)
-        cell.lblController.textColor = self.cellTextColor ?? UIColor.white
+        cell.lblController?.text = arrayViewControllers[indexPath.row] as? String
+        cell.lblController.textColor = UIColor.white //self.cellTextColor ??
         cell.lblController.font = fontNew ?? UIFont(name: "Euphemia UCAS", size: 18)
+        
+       // theImageView.image = theImageView.image!.withRenderingMode(.alwaysTemplate)
+      //  theImageView.tintColor = UIColor.red
+        let image = UIImage(named: (arrayViewControllers[indexPath.row] as? String)!)
+        let tintableImage = image?.withRenderingMode(.alwaysTemplate)
+
+        cell.imgController?.image = tintableImage
+        cell.imgController?.tintColor = UIColor.white
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         return cell
@@ -205,7 +214,7 @@ class DrawerView: UIView, drawerProtocolNew, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         actDissmiss()
         let storyBoard = UIStoryboard(name:"Main", bundle:nil)
-        let controllerName = (storyBoard.instantiateViewController(withIdentifier: aryViewControllers[indexPath.row] as! String))
+        let controllerName = (storyBoard.instantiateViewController(withIdentifier: arrayViewControllers[indexPath.row] as! String))
         controllerName.hidesBottomBarWhenPushed = true
         self.delegate?.pushTo(viewController: controllerName)
     }
