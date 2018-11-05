@@ -4,7 +4,7 @@
 //
 //  Created by Md. Mahadhi Hassan Chowdhury on 11/5/18.
 //  Copyright © 2018 Md. Mahadhi Hassan Chowdhury. All rights reserved.
-//
+
 
 import UIKit
 
@@ -23,11 +23,7 @@ class AccountViewController: UIViewController, DrawerControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isTranslucent = false
-        if #available(iOS 11.0, *) {
-            self.navigationController?.navigationBar.backgroundColor = UIColor(named: "#42b2e5")
-        } else {
-            self.navigationController?.navigationBar.backgroundColor = UIColor.blue
-        }
+
     }
     
     @IBAction func actShowMenu(_ sender: Any) {

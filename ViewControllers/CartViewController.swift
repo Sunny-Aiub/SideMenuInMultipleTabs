@@ -4,14 +4,12 @@
 //
 //  Created by Md. Mahadhi Hassan Chowdhury on 11/5/18.
 //  Copyright © 2018 Md. Mahadhi Hassan Chowdhury. All rights reserved.
-//
+
 
 import UIKit
 
 class CartViewController: UIViewController, DrawerControllerDelegate {
 
-    
-    
     //DrawerControllerDelegate method
     func pushTo(viewController: UIViewController) {
         self.navigationController?.pushViewController(viewController, animated: true)
